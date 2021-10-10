@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  server:
+    build: server/
+    command: node ./index.js
+    ports:
+      - "8080:8080"
+  client:
+    build: ./client
+    container_name: front
+    command: npm start
+    volumes:
+    - ./client/public:/usr/src/app/public
+    ports:
+    - 3000:3000
+    restart: unless-stopped
+    depends_on:
+      - server
+
+
+
